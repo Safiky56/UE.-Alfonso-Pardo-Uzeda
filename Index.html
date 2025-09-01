@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U. E. Alfonso Pardo Uzeda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --azul-oscuro: #1a237e;
+            --azul-medio: #283593;
+            --azul-claro: #3949ab;
+            --azul-pastel: #c5cae9;
+            --gris-oscuro: #424242;
+            --gris-medio: #757575;
+            --gris-claro: #e0e0e0;
+            --verde-claro: #8BC34A;
+            --gris-fondo: #f5f5f5;
+            --blanco: #ffffff;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gris-fondo);
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--azul-oscuro);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--azul-oscuro);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--azul-medio);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--azul-medio);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px var(--sombra);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            height: 60px;
+        }
+        
+        .logo-text {
+            color: var(--blanco);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav {
+            position: relative;
+        }
+        
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+        
+        .menu li a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .menu li a i {
+            font-size: 1.4rem;
+        }
+        
+        .menu li a .menu-text {
+            font-size: 0.85rem;
+            display: none;
+        }
+        
+        .menu li a:hover, 
+        .menu li a.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .menu li a:hover i {
+            transform: translateY(-5px);
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: var(--blanco);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+            overflow: hidden;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.8s ease;
+            height: 100%;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .carousel-caption h2 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .carousel-caption p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #fff;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 10;
+        }
+        
+        .carousel-control {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .carousel-control:hover {
+            background: rgba(40, 53, 147, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: var(--azul-claro);
+            transform: scale(1.2);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: var(--blanco);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--azul-pastel);
+            color: var(--azul-medio);
+            font-size: 2.5rem;
+        }
+        
+        .card-content {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .card h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .about-section {
+            background: var(--blanco);
+        }
+        
+        .mission-section {
+            background: linear-gradient(to bottom, var(--gris-fondo) 50%, var(--blanco) 50%);
+        }
+        
+        .courses-section {
+            background: var(--gris-fondo);
+        }
+        
+        .info-section {
+            background: var(--blanco);
+        }
+        
+        .history-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        
+        .history-text {
+            flex: 1;
+        }
+        
+        .history-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .history-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .history-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            background: var(--azul-medio);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 53, 147, 0.4);
+        }
+        
+        .download-btn:hover {
+            background: var(--azul-oscuro);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(40, 53, 147, 0.6);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--gris-oscuro));
+            color: var(--blanco);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--blanco);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--azul-medio);
+        }
+        
+        .contact-list {
+            list-style: none;
+        }
+        
+        .contact-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .contact-list i {
+            font-size: 1.2rem;
+            color: var(--azul-claro);
+            margin-top: 4px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--blanco);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--azul-medio);
+            transform: translateY(-3px);
+        }
+        
+        .quick-links {
+            list-style: none;
+        }
+        
+        .quick-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .quick-links a {
+            color: var(--blanco);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quick-links a:hover {
+            color: var(--azul-claro);
+            transform: translateX(5px);
+        }
+        
+        .quick-links i {
+            color: var(--azul-claro);
+            width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .contact-section {
+            background-color: var(--gris-fondo);
+            padding: 4rem 0;
+            margin-top: 2rem;
+            border-radius: 12px;
+        }
+        
+        .contact-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--azul-oscuro);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--blanco);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--azul-medio);
+            box-shadow: 0 0 0 3px rgba(40, 53, 147, 0.2);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gris-medio);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--azul-medio);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--azul-oscuro);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(40, 53, 147, 0.4);
+        }
+        
+        .flash-messages {
+            max-width: 600px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+        
+        .flash-message {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .flash-success {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            border: 1px solid #90caf9;
+        }
+        
+        .flash-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        
+        .mini-carousel {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mini-carousel-inner {
+            display: flex;
+            transition: transform 0.8s ease;
+            height: 100%;
+        }
+        
+        .mini-carousel-item {
+            min-width: 100%;
+            height: 100%;
+        }
+        
+        .mini-carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .mini-carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 10;
+        }
+        
+        .mini-carousel-control {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .mini-carousel-control:hover {
+            background: rgba(40, 53, 147, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .mini-carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .mini-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mini-indicator.active {
+            background: var(--azul-claro);
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 992px) {
+            .menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--azul-oscuro);
+                width: 280px;
+                flex-direction: column;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                border-radius: 0 0 10px 10px;
+                padding: 1rem 0;
+            }
+            
+            .menu.show {
+                display: flex;
+            }
+            
+            .menu li {
+                width: 100%;
+            }
+            
+            .menu li a {
+                border-radius: 0;
+                padding: 15px 30px;
+                flex-direction: row;
+                gap: 15px;
+            }
+            
+            .menu li a .menu-text {
+                display: block;
+                font-size: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .carousel {
+                height: 70vh;
+                min-height: 500px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 2rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            
+            .history-content {
+                flex-direction: column;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                height: 40px;
+            }
+            
+            .mini-carousel {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .carousel {
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .carousel-caption {
+                padding: 1.5rem;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.7rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .mini-carousel {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .carousel {
+                height: 50vh;
+                min-height: 350px;
+            }
+            
+            .carousel-caption h2 {
+                font-size: 1.4rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 0.8rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .mini-carousel {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo-removebg-preview.png" alt="Logo U. E. Alfonso Pardo Uzeda" class="logo-icon">
+                <h1 class="logo-text">U. E. Alfonso Pardo Uzeda</h1>
+            </div>
+            <nav>
+                <ul class="menu" id="menu">
+                    <li><a href="#inicio" class="active">
+                        <i class="fas fa-home"></i>
+                        <span class="menu-text">Inicio</span>
+                    </a></li>
+                    <li><a href="#mision-vision">
+                        <i class="fas fa-bullseye"></i>
+                        <span class="menu-text">Misión y Visión</span>
+                    </a></li>
+                    <li><a href="#sobre-nosotros">
+                        <i class="fas fa-users"></i>
+                        <span class="menu-text">Sobre Nosotros</span>
+                    </a></li>
+                    <li><a href="#cursos">
+                        <i class="fas fa-book-open"></i>
+                        <span class="menu-text">Cursos</span>
+                    </a></li>
+                    <li><a href="#informacion">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="menu-text">Información</span>
+                    </a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="C:\Users\User\Desktop\Proyectos\WEB 1\IMG.jpeg" alt="U. E. Alfonso Pardo Uzeda">
+                    <div class="carousel-caption">
+                        <h2>Bienvenidos a la U. E. Alfonso Pardo Uzeda</h2>
+                        <p>64 años formando líderes para el futuro</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="C:\Users\User\Desktop\Proyectos\WEB 1\IMG 1.1.jpeg" alt="Instalaciones">
+                    <div class="carousel-caption">
+                        <h2>Infraestructura Moderna</h2>
+                        <p>Espacios diseñados para el aprendizaje integral</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="C:\Users\User\Desktop\Proyectos\WEB 1\IMG 1.2.jpeg" alt="Comunidad Educativa">
+                    <div class="carousel-caption">
+                        <h2>Comunidad Educativa</h2>
+                        <p>Estudiantes y profesores comprometidos con la excelencia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-control prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="carousel-indicators">
+                <div class="indicator active"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mision-vision" class="mission-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Misión y Visión</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>MISIÓN</h3>
+                        <p>La Unidad Educativa “ALFONSO PARDO UZEDA”, es una institución ecoeficiente que promueve la formación integral y holística de los sujetos, libre de cualquier tipo de violencia, aplica metodologías activas en el desarrollo de las habilidades blandas para la vida, durante el proceso formativo se considera los ritmos de aprendizaje y estilos de aprendizaje, nuestro emblema “Autonomía - Disciplina - Responsabilidad”.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>VISIÓN</h3>
+                        <p>Unidad Educativa “ALFONSO PARDO UZEDA”, institución organizada, con enfoque inclusivo, íntegra en la formación de sujetos: honestos, altruistas, creativos, lideres, críticos, reflexivos, innovadores y disciplinados”, encaminada hacia el logro y la calidad educativa, con calidez humana al servicio de la comunidad educativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-nosotros" class="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+            </div>
+            <div class="history-content">
+                <div class="history-text">
+                    <h3>Nuestra Historia</h3>
+                    <p>La Unidad Educativa "Alfonso Pardo Uzeda" (Turno Tarde) tiene una rica historia de servicio educativo que se remonta a su fundación el 3 de agosto de 1961 bajo el nombre de Escuela "La Merced", iniciando sus labores con los niveles de kínder y primer grado de primaria bajo la dirección de la destacada profesora Aurora Arce Calderón. En 1965, la institución adoptó el nombre del reconocido educador Alfonso Pardo Uzeda como homenaje a su valiosa contribución a la comunidad. A lo largo de los años, la escuela evolucionó hasta convertirse en Unidad Educativa en 1983, ampliando su oferta académica hasta octavo de primaria. En la actualidad, bajo la Resolución Administrativa N° 710/2017, ofrece una educación integral que abarca los niveles inicial, primario y secundario con un enfoque sociocomunitario productivo. Con una planta docente de 27 profesionales calificados y 5 administrativos, la institución continúa su labor educativa en la zona de Alto Chijini, en la ciudad de La Paz, manteniendo su compromiso con una educación transformadora y de calidad bajo el liderazgo del director Lic. Nicolás Rubén Flores Aguilar.</p>
+                </div>
+                <div class="history-image">
+                    <img src="img3.jpg" alt="Historia del Colegio">
+                </div>
+            </div>
+            
+            <div class="mini-carousel">
+                <div class="mini-carousel-inner">
+                    <div class="mini-carousel-item">
+                        <img src="C:\Users\User\Desktop\Proyectos\WEB 1\WhatsApp Image 2025-09-01 at 12.37.47 PM (1).jpeg" alt="Imagen 1 de la institución">
+                    </div>
+                    <div class="mini-carousel-item">
+                        <img src="C:\Users\User\Desktop\Proyectos\WEB 1\WhatsApp Image 2025-09-01 at 12.37.47 PM.jpeg" alt="Imagen 2 de la institución">
+                    </div>
+                    <div class="mini-carousel-item">
+                        <img src="C:\Users\User\Desktop\Proyectos\WEB 1\WhatsApp Image 2025-09-01 at 12.37.48 PM.jpeg" alt="Imagen 3 de la institución">
+                    </div>
+                    <div class="mini-carousel-item">
+                        <img src="C:\Users\User\Desktop\Proyectos\WEB 1\WhatsApp Image 2025-09-01 at 12.37.49 PM.jpeg" alt="Imagen 4 de la institución">
+                    </div>
+                </div>
+                <div class="mini-carousel-controls">
+                    <button class="mini-carousel-control prev-mini">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="mini-carousel-control next-mini">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="mini-carousel-indicators">
+                    <div class="mini-indicator active"></div>
+                    <div class="mini-indicator"></div>
+                    <div class="mini-indicator"></div>
+                    <div class="mini-indicator"></div>
+                </div>
+            </div>
+            
+            <div class="section-title">
+                <h3>Modalidad Educativa</h3>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Educación Personalizada</h3>
+                        <p>Implementamos un modelo de enseñanza que respeta los ritmos y estilos de aprendizaje de cada estudiante, con grupos reducidos y seguimiento individualizado.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Enfoque STEAM</h3>
+                        <p>Integramos ciencia, tecnología, ingeniería, arte y matemáticas en un enfoque interdisciplinario que desarrolla habilidades para resolver problemas complejos.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Educación Bilingüe</h3>
+                        <p>Ofrecemos un programa bilingüe (español-inglés) con certificación internacional, preparando a nuestros estudiantes para un mundo globalizado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cursos" class="courses-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Cursos</h2>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon" style="background: #e3f2fd;">
+                        <i class="fas fa-baby" style="color: #1a237e;"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Educación Inicial en Familia Comunitaria</h3>
+                        <p>Fortalecemos los valores sociocomunitarios en la Interrelación intracultural, intercultural y plurilingüismo en armenia y complementariedad con la Madre Tierra, desarrollando capacidades y habilidades lingüísticas, cognitivas, socioafectivas, psicomotrices, artisticas y creativas, a través de la observación, exploración, experimentación 
+                            e investigación, para asumir actitudes inclusivas, de autonomía y toma de decisiones.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #e3f2fd;">
+                        <i class="fas fa-child" style="color: #1a237e;"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Educación Primaria Comunitaria Vocacional</h3>
+                        <p>Fortalecemos la práctica de valores sociocomunitarios y principios ético-morales, desarrollando el pensamiento crítico, la lectura comprensiva, la escritura creativa, el razonamiento lógico-matemático y la resolución de problemas mediante una convivencia comunitaria biocéntrica. Fomentamos la sensibilidad artística a través del arte, música, danza y deportes, promovemos el uso adecuado de las tecnologías de información y comunicación, e impulsamos la exploración, experimentación e investigación para 
+                            contribuir a una educación intracultural, intercultural y plurilingüe en el Estado Plurinacional.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #e3f2fd;">
+                        <i class="fas fa-user-graduate" style="color: #1a237e;"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Educación SecundariaComunitaria Productiva</h3>
+                        <p>Formamos integralmente a las y los estudiantes con identidad cultural, valores sociocomunitarios, espiritualidad y consciencia critica, articulando la educación científica, humanistica, técnica, tecnológica y artística a traves de procesos productivos de acuerdo a las vocaciones y potencialidades productivas de las regiones en el marco de la descolonización, intracultural, interculturalidad y plurilingüismo que contribuyan a la conservación y protección 
+                            de la Madre Tierra, salud comunitaria y la construcción de una sociedad democrática, inclusiva y libre de violencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="informacion" class="info-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Información del Colegio</h2>
+            </div>
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <div class="card-content" style="text-align: center;">
+                    <h3><i class="fab fa-whatsapp" style="color: #25D366;"></i> Contáctanos por WhatsApp</h3>
+                    <p>Escanea este código QR para comunicarte directamente con nosotros a través de WhatsApp. Estamos disponibles para responder tus preguntas y brindarte más información sobre nuestra institución.</p>
+                    
+                    <div style="display: flex; justify-content: center; margin: 30px 0;">
+                        <img src="WhatsApp Image 2025-07-17 at 8.56.36 PM.jpeg" alt="WhatsApp QR" style="width: 200px; height: 200px; border-radius: 10px;">
+                    </div>
+                    
+                    <p>También puedes enviarnos un mensaje directamente al: <strong>+591 69710419</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>U. E. Alfonso Pardo Uzeda</h3>
+                    <p>Formando ciudadanos globales con valores sólidos desde 1961. Comprometidos con la excelencia educativa y la formación integral de nuestros estudiantes.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/people/U-E-Alfonso-Pardo-Uzeda/100063576861102"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwj5-7_B8YiPAxXKGLkGHcFfDDMQtwJ6BAgSEAI&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DABW-rnynk-0&usg=AOvVaw1tMbEpU4cO0AKgo1p3zS3m&opi=89978449"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-map-marker-alt"></i> Calle Hermanos Artola Nº 1098, Alto Chijini, La Paz</li>
+                        <li><i class="fas fa-phone"></i> (+591) 69719419</li>
+                        <li><i class="fas fa-envelope"></i> info@colegioalfonsopardouzeda.edu</li>
+                        <li><i class="fas fa-clock"></i> Lunes a Viernes: 7:00 AM - 5:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="quick-links">
+                        <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                        <li><a href="#mision-vision"><i class="fas fa-bullseye"></i> Misión y Visión</a></li>
+                        <li><a href="#sobre-nosotros"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+                        <li><a href="#cursos"><i class="fas fa-book-open"></i> Cursos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 U. E. Alfonso Pardo Uzeda</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const menu = document.getElementById('menu');
+            
+            menuToggle.addEventListener('click', function() {
+                menu.classList.toggle('show');
+                
+                const icon = menuToggle.querySelector('i');
+                if (menu.classList.contains('show')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            document.querySelectorAll('#menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menu.classList.remove('show');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                });
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('nav a');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            const carouselInner = document.querySelector('.carousel-inner');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.querySelector('.carousel-control.prev');
+            const nextBtn = document.querySelector('.carousel-control.next');
+            
+            let currentIndex = 0;
+            const totalItems = carouselItems.length;
+            
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                indicators.forEach((indicator, index) => {
+                    if (index === currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarousel();
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateCarousel();
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+            });
+            
+            setInterval(function() {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarousel();
+            }, 5000);
+            
+            const miniCarouselInner = document.querySelector('.mini-carousel-inner');
+            const miniCarouselItems = document.querySelectorAll('.mini-carousel-item');
+            const miniIndicators = document.querySelectorAll('.mini-indicator');
+            const prevMiniBtn = document.querySelector('.prev-mini');
+            const nextMiniBtn = document.querySelector('.next-mini');
+            
+            let miniCurrentIndex = 0;
+            const miniTotalItems = miniCarouselItems.length;
+            
+            function updateMiniCarousel() {
+                miniCarouselInner.style.transform = `translateX(-${miniCurrentIndex * 100}%)`;
+                
+                miniIndicators.forEach((indicator, index) => {
+                    if (index === miniCurrentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            nextMiniBtn.addEventListener('click', function() {
+                miniCurrentIndex = (miniCurrentIndex + 1) % miniTotalItems;
+                updateMiniCarousel();
+            });
+            
+            prevMiniBtn.addEventListener('click', function() {
+                miniCurrentIndex = (miniCurrentIndex - 1 + miniTotalItems) % miniTotalItems;
+                updateMiniCarousel();
+            });
+            
+            miniIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    miniCurrentIndex = index;
+                    updateMiniCarousel();
+                });
+            });
+            
+            setInterval(function() {
+                miniCurrentIndex = (miniCurrentIndex + 1) % miniTotalItems;
+                updateMiniCarousel();
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
